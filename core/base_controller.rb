@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), 'response')
 require File.join(File.dirname(__FILE__), 'renderer')
+require File.join(File.dirname(__FILE__), 'model')
 
 class BaseController
     def initialize env

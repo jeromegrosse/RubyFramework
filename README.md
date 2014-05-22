@@ -22,12 +22,15 @@ bundle
 rackup config.ru -p 9000
 ```
 
+## To do
+- Unit and Functional testing
+
 ## Contributors
 
 [Jérôme Grossé]
 [Jérôme Grossé]: http://github.com/jeromegrosse/
 
-## External library used
+## External libraries used
 
 * [rack](https://github.com/rack/rack)
 * [liquid](https://github.com/Shopify/liquid)
@@ -37,3 +40,4 @@ rackup config.ru -p 9000
 ## License
 
 Please see the LICENSE file for more information in this regard.
+

@@ -1,5 +1,8 @@
 require 'bundler'
 require 'logger'
+require 'mysql2'
+require 'yaml'
+
 
 @@APP_FOLDER  = File.dirname(__FILE__) + "/"
 @@development = true

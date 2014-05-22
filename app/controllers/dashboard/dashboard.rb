@@ -1,8 +1,16 @@
+require File.join(@@APP_FOLDER + "/app/models/" + "test")
+
 class Dashboard < BaseController
     def index
 
-
         time = Time.now
+
+        test = Test.new.tap do |test|
+            test.value = rand(0..100)
+            test.date  = time.to_i
+        end
+
+        test.save
 
         render = Renderer.new
         render.set("date", time.inspect)
