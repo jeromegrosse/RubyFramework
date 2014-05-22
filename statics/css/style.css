@@ -1,0 +1,9 @@
+body {
+  margin: 5px;
+}
+
+pre {
+  padding: 5px;
+  background-color: #E7FFEB;
+  border: 1px #000 solid;
+}
