@@ -10,8 +10,8 @@ class Test < Model
         @table = 'test'
     end
 
-    private
-    def _property_definition
+
+    def property_definition
         @properties = ['id', 'value', 'date']
     end
 

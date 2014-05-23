@@ -7,7 +7,7 @@ An HTML framework implemented in Ruby without any pretention.
 
 ## Motivation
 
-It started overall as a wish to learn Ruby and make a framework that can handle simple HTTP requests without using more famous Ruby Frameworks that would knwo to do the same thing.
+It started overall as a wish to learn Ruby and make a framework that can handle simple HTTP requests without using more famous Ruby Frameworks that would know to do the same thing.
 
 ## Installation
 

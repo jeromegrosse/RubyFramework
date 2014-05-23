@@ -1,4 +1,6 @@
 class Model
+    attr_accessor :id
+
     @id
     @table
     @connection
@@ -9,7 +11,7 @@ class Model
     def initialize
         @table  = ""
         @logger = Logger.new('log/app.log')
-        _property_definition
+        property_definition
     end
 
 
@@ -55,8 +57,7 @@ class Model
     end
 
 
-    private
-    def _property_definition
+    def property_definition
         @properties = []
     end
 
