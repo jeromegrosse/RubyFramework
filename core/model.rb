@@ -10,7 +10,6 @@ class Model
 
     def initialize
         @table  = ""
-        @logger = Logger.new('log/app.log')
         property_definition
     end
 
@@ -18,7 +17,6 @@ class Model
     def save
         property = @properties
         sql = _query_save
-        log "debug", sql
         _connect_db
         @connection.query sql
         _disconnect_db
@@ -45,7 +43,7 @@ class Model
 
         sql  = @id.nil? ? "INSERT INTO " : "UPDATE "
         sql += @table + " "
-        sql += "(" + properties.join(', ') + " ) VALUES ( "
+        sql += "(" + properties.join(', ').gsub(/id,/, "") + " ) VALUES ( "
         sql  =  properties.inject(sql) do |sql, property|
                     if(property.nil? || property == "id")
                         sql
@@ -54,6 +52,11 @@ class Model
                     end
                 end
         sql += " )"
+
+        if not @id.nil?
+            sql += " WHERE id = #{@id}"
+        end
+        sql
     end
 
 
@@ -63,6 +66,7 @@ class Model
 
 
     def log(tag = "info", message = "")
+        @logger = Logger.new('log/app.log')
         @logger.info(tag) { message }
     end
 end

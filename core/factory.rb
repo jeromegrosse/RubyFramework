@@ -8,25 +8,14 @@ class Factory
 
     def initialize
         @table  = ""
-        @logger = Logger.new('log/app.log')
     end
 
 
-    # def save
-    #     property = @properties
-    #     sql = _query_save
-    #     log "debug", sql
-    #     _connect_db
-    #     @connection.query sql
-    #     _disconnect_db
-    # end
-
     def find id
         sql = _sql_find id
-        log "debug", sql
         _connect_db
         result = @connection.query sql
-        log "find rest", result
+        log "test", result
         _disconnect_db
 
         return _build_object result
@@ -45,10 +34,12 @@ class Factory
     def _disconnect_db
     end
 
+
     private
     def _sql_find id
         "SELECT * FROM #{@table} WHERE id = #{id}"
     end
+
 
     private
     def _build_object data
@@ -56,10 +47,7 @@ class Factory
         object      = object_meta.new
 
         data.each do |row|
-            log "factory", row
             row.each do |key,value|
-                log "factory", "#{key} and #{value}"
-                log "facotry", "#{object.property_definition.include? key}"
                 object.instance_variable_set("@#{key}", value) if(object.property_definition.include? key)
             end
         end
@@ -69,6 +57,8 @@ class Factory
 
 
     def log(tag = "info", message = "")
+        @logger = Logger.new('log/app.log') if @logger.nil?
+
         @logger.info(tag) { message }
     end
 end
