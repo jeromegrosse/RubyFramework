@@ -1,7 +1,5 @@
-APP_FOLDER = File.dirname(__FILE__) + '/../../'
-
-require File.join(APP_FOLDER + "core/model")
-require File.join(APP_FOLDER + "core/factory")
+require_relative BASE_PATH + "/core/model.rb"
+require_relative BASE_PATH + "/core/factory.rb"
 require "test/unit"
 
 #Define dummy model
