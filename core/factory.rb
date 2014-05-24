@@ -16,9 +16,25 @@ class Factory
         _connect_db
         result = @connection.query sql
         log "test", result
-        _disconnect_db
 
         return _build_object result
+    end
+
+
+    def find_all arr_condition = [], pagination = {:offset=>0, :per_page=>20}
+        sql = _sql_find_all arr_condition, pagination
+        _connect_db
+        result = @connection.query sql
+        _disconnect_db
+
+
+    end
+
+
+    def log(tag = "info", message = "")
+        @logger = Logger.new('log/app.log') if @logger.nil?
+
+        @logger.info(tag) { message }
     end
 
 
@@ -42,23 +58,41 @@ class Factory
 
 
     private
-    def _build_object data
-        object_meta = Object.const_get(@object_name)
-        object      = object_meta.new
-
-        data.each do |row|
-            row.each do |key,value|
-                object.instance_variable_set("@#{key}", value) if(object.property_definition.include? key)
-            end
+    def _sql_find_all arr_condition, pagination
+        sql = "SELECT * FROM #{@table} "
+        sql += "WHERE " if arr_condition.length > 0
+        arr_condition.each do |key, value|
+            sql += key
+            sql += value.kind_of?(Array) ? " IN ( #{value.join(', ')} ) " : " = #{value} "
+            sql += "AND "
         end
 
-        return object
+        #Dirty fix that erase all "AND " in the last of the string
+        sql = sql[0..-5] if sql[sql.length - 4, sql.length] == "AND "
+        sql += "LIMIT #{pagination[:offset]}, #{pagination[:per_page]}"
     end
 
 
-    def log(tag = "info", message = "")
-        @logger = Logger.new('log/app.log') if @logger.nil?
+    private
+    def _build_object data
+        object_meta = Object.const_get(@object_name)
+        arr_object  = []
 
-        @logger.info(tag) { message }
+        data.each do |row|
+            object = object_meta.new
+            row.each do |key,value|
+                object.instance_variable_set("@#{key}", value) if(object.property_definition.include? key)
+            end
+            arr_object << object
+        end
+
+        ret = nil
+        if arr_object.length == 1
+            ret = arr_object[0]
+        elsif arr_object.length > 1
+            ret = arr_object
+        end
+
+        return ret
     end
 end
