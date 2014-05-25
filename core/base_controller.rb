@@ -4,8 +4,9 @@ require File.join(File.dirname(__FILE__), 'model')
 
 class BaseController
     def initialize env
-        @env = env
-        @logger = Logger.new('log/app.log')
+        @env     = env
+        @request = Rack::Request.new(@env)
+        @logger  = Logger.new('log/app.log')
     end
 
 

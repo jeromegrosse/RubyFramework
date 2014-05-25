@@ -1,11 +1,15 @@
 class RequestController
     def call(env)
-        route = BrainRackApplication.router.route_for(env)
-        if route
-            response = route.execute(env)
-            return response.rack_response
-        else
+
+        begin
+            route = BrainRackApplication.router.route_for(env)
+            raise "No route found!" unless !route.nil?
+        rescue Exception
             return [404, {}, ["404 not found"]]
         end
+
+        response = route.execute(env)
+        return response.rack_response
     end
 end
+
