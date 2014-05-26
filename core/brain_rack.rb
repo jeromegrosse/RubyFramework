@@ -1,9 +1,11 @@
 require File.join(File.dirname(__FILE__), 'router.rb')
 
-class BrainRack
-    attr_reader :router
+module JFW
+    class BrainRack
+        attr_reader :router
 
-    def initialize
-        @router = Router.new
+        def initialize
+            @router = JFW::Router.new
+        end
     end
 end

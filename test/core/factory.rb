@@ -1,9 +1,10 @@
-require_relative BASE_PATH + "/core/model.rb"
-require_relative BASE_PATH + "/core/factory.rb"
+require BASE_PATH + "/core/model.rb"
+require BASE_PATH + "/core/factory.rb"
+
 require "test/unit"
 
 #Define dummy model
-class Test_Model < Model
+class Test_Model < JFW::Model
     attr_accessor :v1, :v2, :v3
 
     @v1
@@ -23,7 +24,7 @@ end
 
 
 
-class Factory_Test < Factory
+class Factory_Test < JFW::Factory
 
     def sql_find id
         _sql_find id

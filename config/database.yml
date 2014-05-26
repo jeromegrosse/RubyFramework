@@ -1,4 +1,0 @@
-db_host: "localhost"
-db_user: "jgrosse"
-db_name: "domotics"
-db_password: "secret_password"

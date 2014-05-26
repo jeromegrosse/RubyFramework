@@ -3,7 +3,7 @@ require_relative BASE_PATH + "/core/factory.rb"
 require "test/unit"
 
 #Define dummy model
-class Test_Model < Model
+class Test_Model < JFW::Model
     attr_accessor :v1, :v2, :v3
 
     @v1
