@@ -1,16 +1,16 @@
-require File.join(@@APP_FOLDER + "/app/models/" + "test")
+require File.join(@@APP_FOLDER + "/app/models/"     + "test")
+require File.join(@@APP_FOLDER + "/app/factories/"  + "test")
 
 class Dashboard < BaseController
     def index
 
         time = Time.now
 
-        test = Test.new.tap do |test|
-            test.value = rand(0..100)
-            test.date  = time.to_i
-        end
+        test_factory = Factory_Test.new
+        conditions = {'value' => 95}
+        test         = test_factory.find_all conditions, {}
 
-        test.save
+        log "dashboard", test
 
         render = Renderer.new
         render.set("date", time.inspect)

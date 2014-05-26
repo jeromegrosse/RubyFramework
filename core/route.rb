@@ -5,7 +5,7 @@ class Route
     def initialize route_array
         @klass_name      = route_array.last[:klass]
         @instance_method = route_array.last[:method]
-        @path            = route_array.last[:directory] != nil ? route_array.last[:directory] : klass_name.downcase.gsub(/_/, '/')
+        @path            = route_array.last[:directory] != nil ? route_array.last[:directory] : klass_name.downcase.gsub(/#/, '/')
         handle_requires
     end
 

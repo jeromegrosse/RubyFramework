@@ -8,11 +8,11 @@ class Router
 
     def initialize
         @routes =   [
-                        ["/",            {:klass => "Dashboard", :method => "index",        :directory => "dashboard/dashboard"}],
-                        [/favicon.ico$/,  {:klass => "Global",    :method => "favicon"}],
-                        [/style\.css$/,   {:klass => "Global",    :method => "style_css"}],
-                        [/.*\/fonts\/.*/, {:klass => "Global",    :method => "fonts"}],
-                        [/scripts\.js$/,  {:klass => "Global",    :method => "scripts_js"}]
+                        ["/",             {:klass => "Dashboard_Controller", :method => "index",        :directory => "dashboard/dashboard"}],
+                        [/favicon.ico$/,  {:klass => "Global_Controller",    :method => "favicon"}],
+                        [/style\.css$/,   {:klass => "Global_Controller",    :method => "style_css"}],
+                        [/.*\/fonts\/.*/, {:klass => "Global_Controller",    :method => "fonts"}],
+                        [/scripts\.js$/,  {:klass => "Global_Controller",    :method => "scripts_js"}]
                     ]
     end
 
@@ -49,22 +49,22 @@ class Router
             arr_path = path.split('/')
             controller = ''
             directory  = ''
-            method     = '  '
+            method     = ''
 
             arr_path.each do |p|
                 next if p == '' || p == nil
                 if p != arr_path.last
                     #todo check if number
-                    controller += "_" + @plurals[p].capitalize
-                    directory  += "/" + @plurals[p]
+                    controller += '_' + @plurals[p].capitalize
+                    directory  += '/' + @plurals[p]
                 else
-                    if p == 'index' || p == 'show' || p == 'newr' || p == 'delete'
+                    if p == 'index' || p == 'show' || p == 'new' || p == 'delete'
                         method    = p
                         directory = directory
                     else
                         if( @plurals.has_key?(p) )
                             controller = controller + '_' + @plurals[p].capitalize
-                            directory  = directory  + "/" + @plurals[p]
+                            directory  = directory  + '/' + @plurals[p]
                             method     = 'index'
                         else
                             method     = p
@@ -76,7 +76,7 @@ class Router
             raise("No Controller Found!") unless controller != ""
             directory = directory + "/" + controller.split(/_/).last.downcase
             controller[0] = ''
-            parse = [/.*/, {:klass => controller, :method => method, :directory => directory}]
+            parse = [/.*/, {:klass => controller + "_Controller", :method => method, :directory => directory}]
         end
 
         return parse

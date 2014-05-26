@@ -3,7 +3,7 @@ source "http://rubygems.org"
 
 ruby '2.0.0'
 
-gem 'rack', '~> 1.5.2'
+gem 'rack'
 gem 'liquid'
-gem 'yui-compressor', "~> 0.9.6"
+gem 'yui-compressor'
 gem 'mysql2'

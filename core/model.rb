@@ -16,9 +16,13 @@ class Model
 
     def save
         property = @properties
-        sql = _query_save
+        sql      = _query_save
+
         _connect_db
         @connection.query sql
+
+        #TODO: To do obtain the id
+
         _disconnect_db
     end
 
