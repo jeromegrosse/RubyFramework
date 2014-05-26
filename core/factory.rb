@@ -22,15 +22,13 @@ class Factory
 
     def find_all arr_condition = {}, pagination = {:offset=>0, :per_page=>20}
         sql = _sql_find_all arr_condition, pagination
-        log "factory", sql
         _connect_db
         result = @connection.query sql
         _disconnect_db
 
-        return _build_object result
     end
 
-
+    
     def log(tag = "info", message = "")
         @logger = Logger.new('log/app.log') if @logger.nil?
 
